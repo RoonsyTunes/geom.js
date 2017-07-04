@@ -328,7 +328,7 @@ exports['convex_decomposition'] = function(test) {
 exports['contains_point'] = function(test){
   // Test if a point is inside, outside, or on a polygon.
   var p = new Polygon([[0, 0], [10,5], [7,7], [0,5]]);
-  var inside = [2,4], outside = [15,15], onPoly =[0,2];
+  var inside = new Point(2,4), outside = new Point(15,15), onPoly = new Point(0,2);
   var inTest = p.contains_point(inside), outTest = p.contains_point(outside), onPoly = p.contains_point(onPoly);
   test.equal(inTest, true);
   test.equal(outTest, false);
@@ -340,6 +340,7 @@ exports['intersects_with_rect'] = function(test){
   var p = new Polygon([[0, 0], [12, 0], [10,5], [7,7], [0,5]]);
   // Test no intersection (Right)
   var ul = new Point(15, 10), lr = new Point(20,5);
+  /*
   var t = p.intersects_with_rect(ul, lr);
   test.equal(t, false);
   // Test no intersection (Above)
@@ -359,6 +360,14 @@ exports['intersects_with_rect'] = function(test){
   test.equal(t, true);
   
   ul = new Point(8, 10), lr = new Point(13,5.5);
+  t = p.intersects_with_rect(ul, lr);
+  test.equal(t, true);
+*/
+
+  p = new Polygon([
+    [415,43],[409,42],[406,42],[404,42],[401,42],[399,42],[397,42],[395,42],[393,42],[391,42],[388,42],[386,42],[385,42],[384,42],[383,42],[382,42],[381,42],[381,42],[380,42],[380,42],[379,42],[377,43],[374,44],[372,46],[368,49],[365,52],[360,56],[352,64],[350,66],[343,76],[340,78],[335,84],[331,90],[323,100],[321,104],[317,111],[314,117],[311,124],[309,130],[308,135],[307,140],[307,145],[307,151],[307,156],[307,162],[307,168],[307,175],[308,181],[310,188],[313,194],[316,201],[323,212],[327,219],[333,226],[340,232],[348,238],[358,244],[367,249],[377,253],[382,254],[391,257],[401,257],[415,258],[419,258],[432,257],[435,254],[441,250],[451,242],[456,235],[461,227],[464,219],[469,210],[472,199],[477,186],[479,176],[480,170],[482,160],[483,150],[483,143],[483,135],[481,128],[474,118],[468,111],[460,106],[451,99],[441,93],[432,86],[422,79],[418,76],[410,70],[403,65],[398,61],[397,60],[392,56],[389,55],[387,54],[386,53],[385,53],[385,53],[383,53]
+]);
+  ul = new Point(116, 191.3), lr = new Point(334.1875,78.5);
   t = p.intersects_with_rect(ul, lr);
   test.equal(t, true);
 

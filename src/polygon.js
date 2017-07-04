@@ -605,8 +605,8 @@ Polygon.prototype.renderOnCanvas = function(ctx, do_stroke, do_fill) {
 
 ///  Checks if a a point is inside the polygon
 Polygon.prototype.contains_point = function(p){
-  var x = p[0];
-  var y = p[1];
+  var x = p.x;
+  var y = p.y;
   var poly = this.pts;
 
   var inside = false;
@@ -626,6 +626,9 @@ Polygon.prototype.contains_point = function(p){
 
 Polygon.prototype.intersects_with_rect = function(ul, lr){
   var poly = this.pts;
+  var rect = calc_rect(ul, lr);
+  ul = rect[0], lr = rect[1];
+
   // Broad Phase
   var bBox = this.bounding_box();
   var pRectUl = new Point(bBox.x, bBox.y + bBox.height), pRectLr = new Point(bBox.x + bBox.width, bBox.y);
@@ -652,6 +655,7 @@ Polygon.prototype.intersects_with_rect = function(ul, lr){
   var rect = [ul, upperRight, lr, lowerLeft];
   for(var i = 0; i < rect.length; i++){
     var result = this.contains_point(rect[i]);
+    console.log(result);
     if(result){
       return true;
     }
@@ -672,4 +676,12 @@ Polygon.prototype.intersects_with_rect = function(ul, lr){
   return false;
 
 }
+
+function calc_rect (p1, p2){
+  var ul = new Point(Math.min(p1.x, p2.x), Math.max(p1.y, p2.y));
+  var lr = new Point(Math.max(p1.x, p2.x), Math.min(p1.y, p2.y));
+  var rect = [ul, lr];
+  return rect;
+}
+
 if (typeof(exports) != 'undefined') { exports.Polygon = Polygon }

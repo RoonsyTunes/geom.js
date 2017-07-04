@@ -305,6 +305,9 @@ Point.prototype.is_inside_rect = function(ul, lr) {
 *     a boolean indicating whether or not the line segment intersects with any of the sides of the rectangle.
 */
 Point.intersect_seg_with_rect = function(a, b, ul, lr){
+  var rect = calc_rect(ul, lr);
+  ul = rect[0], lr = rect[1];
+
   var upperLeft = new Point(ul.x, ul.y);
   var upperRight = new Point(lr.x, ul.y);
   var lowerLeft = new Point(ul.x, lr.y);
@@ -362,6 +365,13 @@ Point.intersect_segments = function(a, b, c, d){
   
 }
 
+function calc_rect (p1, p2){
+  var ul = new Point(Math.min(p1.x, p2.x), Math.max(p1.y, p2.y));
+  var lr = new Point(Math.max(p1.x, p2.x), Math.min(p1.y, p2.y));
+  var rect = [ul, lr];
+  return rect;
+
+}
 
 /// This line is for the automated tests with node.js
 if (typeof(exports) != 'undefined') { exports.Point = Point }  

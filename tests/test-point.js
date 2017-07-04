@@ -419,5 +419,35 @@ exports['intersect_seg_with_rect'] = function(test){
   var t = Point.intersect_seg_with_rect(a, b, upperLeft, lowerRight);
   test.equal(t, true);
 
+  // Tests when given opposite corners of rectangle
+  upperLeft = new Point(0,0);
+  lowerRight = new Point(10,10);
+
+  // Line inside rectangle
+  var a = new Point(3,3);
+  var b = new Point(7,3);
+  var t = Point.intersect_seg_with_rect(a, b, upperLeft, lowerRight);
+  test.equal(t, true);
+
+
+  // Line Intersecting Side
+  a = new Point(5, 5);
+  b = new Point(15, 10);
+  var t = Point.intersect_seg_with_rect(a, b, upperLeft, lowerRight);
+  test.equal(t, true);
+
+
+  // No Intersection
+  a = new Point(25, 5);
+  b = new Point(15, 10);
+  var t = Point.intersect_seg_with_rect(a, b, upperLeft, lowerRight);
+  test.equal(t, false);
+
+  // Line Intersection Side (Point on Side)
+  a = new Point(25, 5);
+  b = new Point(10, 5);
+  var t = Point.intersect_seg_with_rect(a, b, upperLeft, lowerRight);
+  test.equal(t, true);
+
   test.done();
 }
